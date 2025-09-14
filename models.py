@@ -1,97 +1,124 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
 
+db = SQLAlchemy()
+
+# ===========================
+# User model (for auth)
+# ===========================
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-    
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    __tablename__ = "users"
 
-class Produit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nom = db.Column(db.String(100), nullable=False)
-    prix_achat = db.Column(db.Float, nullable=False, default=0)  # Prix d'achat pour calculer le bénéfice
-    prix_unitaire = db.Column(db.Float, nullable=False)  # Prix de vente
-    stock = db.Column(db.Integer, default=0)
-    seuil_alerte = db.Column(db.Integer, default=10)  # Seuil pour alerte stock bas
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    # Relations
-    ventes = db.relationship('Vente', backref='produit', lazy=True)
-    mouvements_stock = db.relationship('MouvementStock', backref='produit', lazy=True)
-    reservations = db.relationship('Reservation', backref='produit', lazy=True)
-    
-    @property
-    def marge_benefice(self):
-        return self.prix_unitaire - self.prix_achat
-    
-    @property
-    def est_stock_bas(self):
-        return self.stock <= self.seuil_alerte
 
+    def __repr__(self):
+        return f"<User {self.username}>"
+
+
+# ===========================
+# Client model
+# ===========================
 class Client(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nom = db.Column(db.String(100), nullable=False)
-    contact = db.Column(db.String(50))
-    adresse = db.Column(db.String(200))
-    email = db.Column(db.String(120))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    # Relations
-    ventes = db.relationship('Vente', backref='client', lazy=True)
-    livraisons = db.relationship('Livraison', backref='client', lazy=True)
-    reservations = db.relationship('Reservation', backref='client', lazy=True)
-    
-    @property
-    def total_achats(self):
-        return sum(vente.total for vente in self.ventes)
+    __tablename__ = "clients"
 
-class Vente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    produit_id = db.Column(db.Integer, db.ForeignKey('produit.id'), nullable=False)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True)
-    quantite = db.Column(db.Integer, nullable=False)
-    prix_unitaire = db.Column(db.Float, nullable=False)  # Prix au moment de la vente
-    total = db.Column(db.Float, nullable=False)
-    date_vente = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    @property
-    def benefice(self):
-        if self.produit:
-            return (self.prix_unitaire - self.produit.prix_achat) * self.quantite
-        return 0
-
-class MouvementStock(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    produit_id = db.Column(db.Integer, db.ForeignKey('produit.id'), nullable=False)
-    type_mouvement = db.Column(db.String(20), nullable=False)  # 'entree' ou 'sortie'
-    quantite = db.Column(db.Integer, nullable=False)
-    motif = db.Column(db.String(200))
-    date_mouvement = db.Column(db.DateTime, default=datetime.utcnow)
-
-class Livraison(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
-    adresse = db.Column(db.String(200), nullable=False)
-    statut = db.Column(db.String(50), default="En cours")  # En cours, Livré, Annulé
-    date_prevue = db.Column(db.DateTime)
-    date_livraison = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    name = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=True)
+    phone = db.Column(db.String(50), nullable=True)
+    address = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    reservations = db.relationship("Reservation", backref="client", lazy=True)
+    ventes = db.relationship("Vente", backref="client", lazy=True)
+
+    def __repr__(self):
+        return f"<Client {self.name}>"
+
+
+# ===========================
+# Produit model
+# ===========================
+class Produit(db.Model):
+    __tablename__ = "produits"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    price = db.Column(db.Float, nullable=False, default=0.0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    stock = db.relationship("Stock", backref="produit", uselist=False)
+    ventes = db.relationship("Vente", backref="produit", lazy=True)
+    reservations = db.relationship("Reservation", backref="produit", lazy=True)
+
+    def __repr__(self):
+        return f"<Produit {self.name}>"
+
+
+# ===========================
+# Stock model
+# ===========================
+class Stock(db.Model):
+    __tablename__ = "stocks"
+
+    id = db.Column(db.Integer, primary_key=True)
+    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=0)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<Stock produit_id={self.produit_id} qty={self.quantity}>"
+
+
+# ===========================
+# Reservation model
+# ===========================
 class Reservation(db.Model):
+    __tablename__ = "reservations"
+
     id = db.Column(db.Integer, primary_key=True)
-    produit_id = db.Column(db.Integer, db.ForeignKey('produit.id'), nullable=False)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
-    quantite = db.Column(db.Integer, nullable=False)
-    statut = db.Column(db.String(50), default="En attente")  # En attente, Confirmé, Annulé
-    date_reservation = db.Column(db.DateTime, default=datetime.utcnow)
-    date_limite = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
+    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    reserved_at = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(50), default="en_attente")  # ex: en_attente, confirme, annule
+
+    def __repr__(self):
+        return f"<Reservation client={self.client_id} produit={self.produit_id}>"
+
+
+# ===========================
+# Vente model
+# ===========================
+class Vente(db.Model):
+    __tablename__ = "ventes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
+    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
+    date_vente = db.Column(db.DateTime, default=datetime.utcnow)
+
+    livraison = db.relationship("Livraison", backref="vente", uselist=False)
+
+    def __repr__(self):
+        return f"<Vente client={self.client_id} produit={self.produit_id}>"
+
+
+# ===========================
+# Livraison model
+# ===========================
+class Livraison(db.Model):
+    __tablename__ = "livraisons"
+
+    id = db.Column(db.Integer, primary_key=True)
+    vente_id = db.Column(db.Integer, db.ForeignKey("ventes.id"), nullable=False)
+    status = db.Column(db.String(50), default="en_preparation")  # ex: en_preparation, expedie, livre
+    date_livraison = db.Column(db.DateTime, nullable=True)
+
+    def __repr__(self):
+        return f"<Livraison vente_id={self.vente_id} status={self.status}>"
