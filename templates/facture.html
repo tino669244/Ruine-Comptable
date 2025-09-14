@@ -1,64 +1,13 @@
 {% extends "base.html" %}
+{% block title %}Factures{% endblock %}
 {% block content %}
-
-<div class="container mt-4">
-    <div class="card shadow p-4">
-        <div class="row">
-            <div class="col-6">
-                <h2>Facture</h2>
-                <p><strong>Numéro:</strong> {{ facture.numero }}</p>
-                <p><strong>Date:</strong> {{ facture.date_facture.strftime("%d/%m/%Y") }}</p>
-            </div>
-            <div class="col-6 text-end">
-                <h4>Client</h4>
-                <p>{{ facture.client.nom }}</p>
-                <p>{{ facture.client.email }}</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Quantité</th>
-                    <th>Prix Unitaire</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ligne in facture.commande.lignes %}
-                <tr>
-                    <td>{{ ligne.produit.nom }}</td>
-                    <td>{{ ligne.quantite }}</td>
-                    <td>{{ ligne.produit.prix }}</td>
-                    <td>{{ ligne.quantite * ligne.produit.prix }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <h4 class="text-end mt-3">Montant Total: {{ facture.montant_total }} Ar</h4>
-
-        <p><strong>État Paiement:</strong> 
-            {% if facture.etat_paiement == "Payée" %}
-                <span class="badge bg-success">Payée</span>
-            {% elif facture.etat_paiement == "Partielle" %}
-                <span class="badge bg-warning text-dark">Partielle</span>
-            {% else %}
-                <span class="badge bg-danger">Non Payée</span>
-            {% endif %}
-        </p>
-
-        <p><strong>Mode de Paiement:</strong> {{ facture.mode_paiement or "Non défini" }}</p>
-
-        <div class="text-end mt-4">
-            <button onclick="window.print()" class="btn btn-primary">
-                🖨️ Imprimer Facture
-            </button>
-        </div>
-    </div>
-</div>
-
+<h2>Liste des factures</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Client</th><th>Date</th><th>Total</th>
+  </tr>
+  <tr>
+    <td>1</td><td>Client Démo</td><td>2025-09-14</td><td>200.00 €</td>
+  </tr>
+</table>
 {% endblock %}
