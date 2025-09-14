@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Clients</h2>
+<a href="{{ url_for('clients.add_client') }}" class="btn btn-success mb-3">Ajouter Client</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th><th>Nom</th><th>Email</th><th>Téléphone</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.phone }}</td>
+            <td>
+                <a href="{{ url_for('clients.edit_client', client_id=client.id) }}" class="btn btn-warning btn-sm">Modifier</a>
+                <form method="post" action="{{ url_for('clients.delete_client', client_id=client.id) }}" style="display:inline">
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce client ?')">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
