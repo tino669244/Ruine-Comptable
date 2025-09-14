@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from models import db
 
+# Flask app
 app = Flask(__name__)
 
 # Config
@@ -14,6 +15,7 @@ db.init_app(app)
 def create_tables():
     db.create_all()
 
+# Routes simples
 @app.route("/")
 def home():
     return render_template("dashboard.html")
@@ -22,10 +24,10 @@ def home():
 def login():
     return render_template("login.html")
 
-@app.route("/facture")
-def facture():
+@app.route("/factures")
+def factures():
     return render_template("facture.html")
 
-@app.route("/bon-commande")
-def bon_commande():
-    return render_template("bon_commande.html")
+@app.route("/commandes")
+def commandes():
+    return render_template("commandes.html")
