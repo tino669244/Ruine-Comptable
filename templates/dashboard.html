@@ -1,16 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Tableau de bord</h2>
+<h2 class="mb-4">Tableau de Bord</h2>
+
 <div class="row">
-    {% for key, value in stats.items() %}
-    <div class="col-md-2">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title text-capitalize">{{ key }}</h5>
-                <p class="display-6">{{ value }}</p>
-            </div>
-        </div>
+  <div class="col-md-3 mb-3">
+    <div class="card shadow text-center p-3">
+      <h5 class="card-title">Clients</h5>
+      <h2 class="display-6">{{ stats.clients }}</h2>
     </div>
-    {% endfor %}
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card shadow text-center p-3">
+      <h5 class="card-title">Produits</h5>
+      <h2 class="display-6">{{ stats.produits }}</h2>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card shadow text-center p-3">
+      <h5 class="card-title">Stocks</h5>
+      <h2 class="display-6">{{ stats.stocks }}</h2>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card shadow text-center p-3">
+      <h5 class="card-title">Ventes</h5>
+      <h2 class="display-6">{{ stats.ventes }}</h2>
+    </div>
+  </div>
 </div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <canvas id="salesChart"></canvas>
+  </div>
+  <div class="col-md-6">
+    <canvas id="stocksChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const salesCtx = document.getElementById('salesChart');
+new Chart(salesCtx, {
+  type: 'line',
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [{
+      label: "Ventes",
+      data: [10, 20, 15, 30, 25, 40],
+      borderColor: "rgba(75, 192, 192, 1)",
+      tension: 0.3
+    }]
+  }
+});
+
+const stockCtx = document.getElementById('stocksChart');
+new Chart(stockCtx, {
+  type: 'bar',
+  data: {
+    labels: ["Produit A", "Produit B", "Produit C"],
+    datasets: [{
+      label: "Stocks",
+      data: [120, 80, 50],
+      backgroundColor: ["#007bff", "#28a745", "#ffc107"]
+    }]
+  }
+});
+</script>
 {% endblock %}
