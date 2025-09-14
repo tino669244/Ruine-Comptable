@@ -1,33 +1,24 @@
-from flask import Flask, render_template
-from models import db
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-# Flask app
-app = Flask(__name__)
+db = SQLAlchemy()
 
-# Config
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = "super-secret-key"
+def create_app():
+    # Apetrao instance_path amin'ny /tmp
+    app = Flask(__name__, instance_path="/tmp")
 
-db.init_app(app)
+    # Config
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///" + os.path.join("/tmp", "app.db"))
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+    db.init_app(app)
 
-# Routes simples
-@app.route("/")
-def home():
-    return render_template("dashboard.html")
+    @app.route("/")
+    def home():
+        return "Hello from Flask with SQLAlchemy on Vercel!"
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+    return app
 
-@app.route("/factures")
-def factures():
-    return render_template("facture.html")
-
-@app.route("/commandes")
-def commandes():
-    return render_template("commandes.html")
+# Vercel mitady an'io
+app = create_app()
