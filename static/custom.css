@@ -1,68 +1,62 @@
-/* Reset petites marges */
-body {
-    background-color: #f8f9fa;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+/* Sidebar style */
+#wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#sidebar-wrapper {
+  min-width: 220px;
+  max-width: 220px;
+  transition: all 0.3s;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: -220px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+/* Sidebar items */
+.list-group-item {
+  border: none;
+  padding: 15px 20px;
+}
+.list-group-item:hover {
+  background: #495057 !important;
+  color: #fff !important;
 }
 
 /* Navbar */
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.3rem;
+.navbar-dark {
+  background: linear-gradient(90deg, #343a40, #212529);
 }
 
-.navbar-nav .nav-link {
-    color: #ddd !important;
+/* Dashboard cards */
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: scale(1.05);
 }
 
-.navbar-nav .nav-link:hover {
-    color: #fff !important;
+/* Table style */
+.table {
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
-/* Flash messages */
-.alert {
-    border-radius: 8px;
-}
-
-/* Tables */
-table {
-    background: white;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-th {
-    background: #343a40;
-    color: white;
+.table th {
+  background: #343a40;
+  color: #fff;
 }
 
 /* Buttons */
 .btn {
-    border-radius: 6px;
-}
-
-.btn-success {
-    background-color: #28a745;
-    border: none;
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-}
-
-/* Cards (Dashboard stats) */
-.card {
-    border-radius: 10px;
-}
-.card .card-title {
-    font-size: 1rem;
-}
-.card .display-6 {
-    font-weight: bold;
-    color: #007bff;
+  border-radius: 30px;
+  font-size: 0.9rem;
 }
