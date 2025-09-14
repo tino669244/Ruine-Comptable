@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Produits</h2>
+<a href="{{ url_for('produits.add_produit') }}" class="btn btn-success mb-3">Ajouter Produit</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th><th>Nom</th><th>Description</th><th>Prix</th><th>Stock</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produit in produits %}
+        <tr>
+            <td>{{ produit.id }}</td>
+            <td>{{ produit.name }}</td>
+            <td>{{ produit.description }}</td>
+            <td>{{ produit.price }} Ar</td>
+            <td>{{ produit.stock }}</td>
+            <td>
+                <a href="{{ url_for('produits.edit_produit', produit_id=produit.id) }}" class="btn btn-warning btn-sm">Modifier</a>
+                <form method="post" action="{{ url_for('produits.delete_produit', produit_id=produit.id) }}" style="display:inline">
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce produit ?')">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
