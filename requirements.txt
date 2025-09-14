@@ -1,5 +1,5 @@
 flask
 flask_sqlalchemy
-flask_jwt_extended
-flask_cors
 gunicorn
+flask_jwt_extended
+reportlab
