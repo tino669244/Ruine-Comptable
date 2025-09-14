@@ -1,43 +1,36 @@
-from models import User, db
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import db, User
 
 class AuthService:
     @staticmethod
     def create_user(username, password):
-        """Créer un nouvel utilisateur"""
+        """Create new user with hashed password"""
         try:
-            # Vérifier si l'utilisateur existe déjà
-            if User.query.filter_by(username=username).first():
-                return None
+            # Check if username already exists
+            existing_user = User.query.filter_by(username=username).first()
+            if existing_user:
+                return False
             
-            user = User(username=username)
-            user.set_password(password)
+            # Hash password
+            hashed_pw = generate_password_hash(password)
+            new_user = User(username=username, password=hashed_pw)
             
-            db.session.add(user)
+            db.session.add(new_user)
             db.session.commit()
-            return user
+            return True
         except Exception as e:
+            print(f"[AuthService] Error creating user: {e}")
             db.session.rollback()
-            return None
-    
+            return False
+
     @staticmethod
     def authenticate_user(username, password):
-        """Authentifier un utilisateur"""
-        user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            return user
-        return None
-    
-    @staticmethod
-    def create_default_user():
-        """Créer un utilisateur par défaut pour les tests"""
-        if not User.query.first():
-            default_user = User(username='admin')
-            default_user.set_password('admin123')
-            
-            try:
-                db.session.add(default_user)
-                db.session.commit()
-                print("Utilisateur par défaut créé: admin/admin123")
-            except Exception as e:
-                db.session.rollback()
-                print(f"Erreur lors de la création de l'utilisateur par défaut: {e}")
+        """Verify user credentials"""
+        try:
+            user = User.query.filter_by(username=username).first()
+            if user and check_password_hash(user.password, password):
+                return user
+            return None
+        except Exception as e:
+            print(f"[AuthService] Error authenticating user: {e}")
+            return None
