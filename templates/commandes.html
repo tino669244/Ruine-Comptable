@@ -1,1 +1,32 @@
-
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Liste des Commandes</h2>
+  <a href="{{ url_for('commandes.add_commande') }}" class="btn btn-primary mb-3">Nouvelle Commande</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Date</th>
+        <th>Client</th>
+        <th>Statut</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cmd in commandes %}
+      <tr>
+        <td>{{ cmd.ref }}</td>
+        <td>{{ cmd.date.strftime('%d/%m/%Y') }}</td>
+        <td>{{ cmd.client.nom }}</td>
+        <td>{{ cmd.statut }}</td>
+        <td>
+          <a href="{{ url_for('commandes.detail_commande', id=cmd.id) }}" class="btn btn-info btn-sm">Détails</a>
+          <a href="{{ url_for('factures.generer_facture', commande_id=cmd.id) }}" class="btn btn-success btn-sm">Générer Facture</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
