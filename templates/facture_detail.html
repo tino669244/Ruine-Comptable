@@ -1,1 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" id="facture">
+  <h2>Facture {{ facture.ref }}</h2>
+  <p><b>Date:</b> {{ facture.date.strftime('%d/%m/%Y') }}</p>
+  <p><b>Client:</b> {{ facture.commande.client.nom }}</p>
 
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>PU</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ligne in facture.commande.lignes %}
+      <tr>
+        <td>{{ ligne.produit.nom }}</td>
+        <td>{{ ligne.quantite }}</td>
+        <td>{{ ligne.prix_unitaire }} Ar</td>
+        <td>{{ ligne.quantite * ligne.prix_unitaire }} Ar</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3">
+    <p><b>Total HT:</b> {{ facture.total_ht }} Ar</p>
+    <p><b>TVA (20%):</b> {{ facture.total_ht * facture.tva }} Ar</p>
+    <h4>Total TTC: {{ facture.total_ttc }} Ar</h4>
+  </div>
+</div>
+
+<button class="btn btn-primary mt-3" onclick="window.print()">
+  <i class="fa fa-print"></i> Imprimer
+</button>
+{% endblock %}
