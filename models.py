@@ -1,124 +1,55 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# ===========================
-# User model (for auth)
-# ===========================
-class User(db.Model):
-    __tablename__ = "users"
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f"<User {self.username}>"
-
-
-# ===========================
-# Client model
-# ===========================
+# -------------------
+# Client
+# -------------------
 class Client(db.Model):
-    __tablename__ = "clients"
-
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    email = db.Column(db.String(150), unique=True, nullable=True)
-    phone = db.Column(db.String(50), nullable=True)
-    address = db.Column(db.String(255), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    nom = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), unique=True)
+    telephone = db.Column(db.String(20))
+    commandes = db.relationship('Commande', backref='client', lazy=True)
 
-    reservations = db.relationship("Reservation", backref="client", lazy=True)
-    ventes = db.relationship("Vente", backref="client", lazy=True)
-
-    def __repr__(self):
-        return f"<Client {self.name}>"
-
-
-# ===========================
-# Produit model
-# ===========================
+# -------------------
+# Produit
+# -------------------
 class Produit(db.Model):
-    __tablename__ = "produits"
-
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    price = db.Column(db.Float, nullable=False, default=0.0)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    nom = db.Column(db.String(100), nullable=False)
+    prix = db.Column(db.Float, nullable=False)
+    stock = db.Column(db.Integer, default=0)
 
-    stock = db.relationship("Stock", backref="produit", uselist=False)
-    ventes = db.relationship("Vente", backref="produit", lazy=True)
-    reservations = db.relationship("Reservation", backref="produit", lazy=True)
-
-    def __repr__(self):
-        return f"<Produit {self.name}>"
-
-
-# ===========================
-# Stock model
-# ===========================
-class Stock(db.Model):
-    __tablename__ = "stocks"
-
+# -------------------
+# Commande
+# -------------------
+class Commande(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False, default=0)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    ref = db.Column(db.String(50), unique=True, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    statut = db.Column(db.String(20), default="En attente")
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
+    lignes = db.relationship('CommandeLigne', backref='commande', lazy=True)
 
-    def __repr__(self):
-        return f"<Stock produit_id={self.produit_id} qty={self.quantity}>"
-
-
-# ===========================
-# Reservation model
-# ===========================
-class Reservation(db.Model):
-    __tablename__ = "reservations"
-
+class CommandeLigne(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
-    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    reserved_at = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.String(50), default="en_attente")  # ex: en_attente, confirme, annule
+    commande_id = db.Column(db.Integer, db.ForeignKey('commande.id'))
+    produit_id = db.Column(db.Integer, db.ForeignKey('produit.id'))
+    quantite = db.Column(db.Integer, nullable=False)
+    prix_unitaire = db.Column(db.Float, nullable=False)
+    produit = db.relationship('Produit')
 
-    def __repr__(self):
-        return f"<Reservation client={self.client_id} produit={self.produit_id}>"
-
-
-# ===========================
-# Vente model
-# ===========================
-class Vente(db.Model):
-    __tablename__ = "ventes"
-
+# -------------------
+# Facture
+# -------------------
+class Facture(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
-    produit_id = db.Column(db.Integer, db.ForeignKey("produits.id"), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    total_price = db.Column(db.Float, nullable=False)
-    date_vente = db.Column(db.DateTime, default=datetime.utcnow)
-
-    livraison = db.relationship("Livraison", backref="vente", uselist=False)
-
-    def __repr__(self):
-        return f"<Vente client={self.client_id} produit={self.produit_id}>"
-
-
-# ===========================
-# Livraison model
-# ===========================
-class Livraison(db.Model):
-    __tablename__ = "livraisons"
-
-    id = db.Column(db.Integer, primary_key=True)
-    vente_id = db.Column(db.Integer, db.ForeignKey("ventes.id"), nullable=False)
-    status = db.Column(db.String(50), default="en_preparation")  # ex: en_preparation, expedie, livre
-    date_livraison = db.Column(db.DateTime, nullable=True)
-
-    def __repr__(self):
-        return f"<Livraison vente_id={self.vente_id} status={self.status}>"
+    ref = db.Column(db.String(50), unique=True, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    commande_id = db.Column(db.Integer, db.ForeignKey('commande.id'))
+    total_ht = db.Column(db.Float, nullable=False)
+    tva = db.Column(db.Float, default=0.2)
+    total_ttc = db.Column(db.Float, nullable=False)
+    commande = db.relationship('Commande')
