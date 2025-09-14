@@ -1,4 +1,4 @@
 from main import app as application
 
-# Vercel mitady 'app'
+# Vercel mitady `app`
 app = application
