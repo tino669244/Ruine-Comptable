@@ -1,0 +1,68 @@
+/* Reset petites marges */
+body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.navbar-nav .nav-link {
+    color: #ddd !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff !important;
+}
+
+/* Flash messages */
+.alert {
+    border-radius: 8px;
+}
+
+/* Tables */
+table {
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th {
+    background: #343a40;
+    color: white;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 6px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+/* Cards (Dashboard stats) */
+.card {
+    border-radius: 10px;
+}
+.card .card-title {
+    font-size: 1rem;
+}
+.card .display-6 {
+    font-weight: bold;
+    color: #007bff;
+}
