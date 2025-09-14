@@ -1,1 +1,26 @@
-
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Liste des Factures</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Date</th>
+        <th>Total TTC</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in factures %}
+      <tr>
+        <td>{{ f.ref }}</td>
+        <td>{{ f.date.strftime('%d/%m/%Y') }}</td>
+        <td>{{ f.total_ttc }} Ar</td>
+        <td><a href="{{ url_for('factures.detail_facture', id=f.id) }}" class="btn btn-info btn-sm">Voir</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
