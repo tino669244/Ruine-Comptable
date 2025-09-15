@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ruine Comptable</title>
 
-  <!-- Style -->
+  <!-- CSS principal -->
   <link rel="stylesheet" href="assets/css/style.css">
 
   <!-- Google Analytics -->
@@ -18,9 +18,48 @@
   </script>
 </head>
 <body>
-  <h1>Bienvenue sur Ruine Comptable 🚀</h1>
+  <!-- HEADER -->
+  <header>
+    <h1>Ruine Comptable 🚀</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="client.html">Clients</a></li>
+        <li><a href="produit.html">Produits</a></li>
+        <li><a href="stock.html">Stocks</a></li>
+        <li><a href="reservation.html">Réservations</a></li>
+        <li><a href="vente.html">Ventes</a></li>
+        <li><a href="livraison.html">Livraisons</a></li>
+        <li><a href="facture.html">Factures</a></li>
+        <li><a href="commande.html">Commandes</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Scripts -->
+  <!-- CONTENU PRINCIPAL -->
+  <main>
+    <section class="dashboard">
+      <h2>Tableau de bord</h2>
+      <div class="cards">
+        <div class="card">Clients <span id="clients-count">0</span></div>
+        <div class="card">Produits <span id="produits-count">0</span></div>
+        <div class="card">Stocks <span id="stocks-count">0</span></div>
+        <div class="card">Ventes <span id="ventes-count">0</span></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2>Statistiques des ventes</h2>
+      <canvas id="salesChart"></canvas>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
+  </footer>
+
+  <!-- JS Scripts -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/dashboard.js"></script>
 </body>
