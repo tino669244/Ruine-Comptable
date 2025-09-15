@@ -2,5 +2,3 @@ flask
 flask_sqlalchemy
 flask_jwt_extended
 gunicorn
-psycopg2-binary
-python-dotenv
