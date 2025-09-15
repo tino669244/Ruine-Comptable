@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stocks - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Stocks</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="produits.html">Produits</a>
+      <a href="stocks.html" class="active">Stocks</a>
+      <a href="reservations.html">Réservations</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="livraisons.html">Livraisons</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Gestion des Stocks</h2>
+    <form id="stockForm">
+      <input type="text" id="produitStock" placeholder="Produit" required>
+      <input type="number" id="quantiteStock" placeholder="Quantité" required>
+      <button type="submit">Ajouter au Stock</button>
+    </form>
+
+    <h3>Liste des Stocks</h3>
+    <table id="stocksTable">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="js/stocks.js"></script>
+</body>
+</html>
