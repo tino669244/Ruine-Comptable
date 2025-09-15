@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventes - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Ventes</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="produits.html">Produits</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="reservations.html">Réservations</a>
+      <a href="ventes.html" class="active">Ventes</a>
+      <a href="livraisons.html">Livraisons</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Gestion des Ventes</h2>
+    <form id="venteForm">
+      <input type="text" id="clientVente" placeholder="Nom du client" required>
+      <input type="text" id="produitVente" placeholder="Produit vendu" required>
+      <input type="number" id="montantVente" placeholder="Montant" required>
+      <button type="submit">Ajouter Vente</button>
+    </form>
+
+    <h3>Liste des Ventes</h3>
+    <table id="ventesTable">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Produit</th>
+          <th>Montant</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="js/ventes.js"></script>
+</body>
+</html>
