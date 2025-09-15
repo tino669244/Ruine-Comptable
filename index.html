@@ -3,61 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Ruine Comptable</title>
+  <title>Ruine Comptable - Tableau de Bord</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Ruine Comptable</h1>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <h2>Ruine Comptable</h2>
+    </div>
     <nav>
-      <a href="index.html" class="active">Dashboard</a>
-      <a href="clients.html">Clients</a>
-      <a href="produits.html">Produits</a>
-      <a href="stocks.html">Stocks</a>
-      <a href="reservations.html">Réservations</a>
-      <a href="ventes.html">Ventes</a>
-      <a href="livraisons.html">Livraisons</a>
-      <a href="facture.html">Factures</a>
-      <a href="commandes.html">Commandes</a>
+      <a href="index.html" class="active">📊 Dashboard</a>
+      <a href="clients.html">👥 Clients</a>
+      <a href="produits.html">📦 Produits</a>
+      <a href="stocks.html">🏬 Stocks</a>
+      <a href="reservations.html">📑 Réservations</a>
+      <a href="ventes.html">💰 Ventes</a>
+      <a href="livraisons.html">🚚 Livraisons</a>
+      <a href="factures.html">🧾 Factures</a>
+      <a href="commandes.html">📝 Commandes</a>
     </nav>
-  </header>
+  </aside>
 
-  <main>
-    <h2>Tableau de bord</h2>
-    <p id="clock"></p>
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <h1>Tableau de bord</h1>
+    </header>
 
+    <!-- Cards Section -->
     <section class="cards">
       <div class="card">
         <h3>Clients</h3>
-        <p id="totalClients">0</p>
+        <p id="clients-count">0</p>
       </div>
       <div class="card">
         <h3>Produits</h3>
-        <p id="totalProduits">0</p>
+        <p id="produits-count">0</p>
       </div>
       <div class="card">
         <h3>Ventes</h3>
-        <p id="totalVentes">0</p>
+        <p id="ventes-count">0</p>
       </div>
       <div class="card">
         <h3>Stocks</h3>
-        <p id="totalStocks">0</p>
+        <p id="stocks-count">0</p>
       </div>
     </section>
 
-    <section>
-      <h3>Statistiques des ventes</h3>
-      <canvas id="salesChart" width="400" height="200"></canvas>
+    <!-- Graph Section -->
+    <section class="chart">
+      <h2>Statistiques des ventes</h2>
+      <canvas id="salesChart"></canvas>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Ruine Comptable</p>
-  </footer>
-
-  <script src="js/main.js"></script>
-  <script src="js/dashboard.js"></script>
 </body>
 </html>
