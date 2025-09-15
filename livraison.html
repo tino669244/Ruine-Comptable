@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livraisons - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Livraisons</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="produits.html">Produits</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="reservations.html">Réservations</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="livraisons.html" class="active">Livraisons</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Gestion des Livraisons</h2>
+    <form id="livraisonForm">
+      <input type="text" id="clientLivraison" placeholder="Nom du client" required>
+      <input type="text" id="produitLivraison" placeholder="Produit livré" required>
+      <button type="submit">Ajouter Livraison</button>
+    </form>
+
+    <h3>Liste des Livraisons</h3>
+    <table id="livraisonsTable">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Produit</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="js/livraisons.js"></script>
+</body>
+</html>
