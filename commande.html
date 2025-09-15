@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon de Commande - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Ruine Comptable</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="commandes.html" class="active">Commandes</a>
+      <a href="facture.html">Factures</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="commande">
+      <h2>Nouveau Bon de Commande</h2>
+
+      <form id="commandeForm">
+        <label for="fournisseur">Fournisseur :</label>
+        <input type="text" id="fournisseur" name="fournisseur" placeholder="Nom du fournisseur" required>
+
+        <label for="dateCommande">Date :</label>
+        <input type="date" id="dateCommande" name="dateCommande" required>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Quantité</th>
+              <th>Prix Unitaire</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="commandeItems">
+            <tr>
+              <td><input type="text" name="produit[]" placeholder="Nom du produit"></td>
+              <td><input type="number" name="quantite[]" min="1" value="1"></td>
+              <td><input type="number" name="prix[]" step="0.01" value="0"></td>
+              <td class="total">0.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button type="button" id="addRowCommande">Ajouter ligne</button>
+
+        <h3>Total général : <span id="grandTotalCommande">0.00</span> Ar</h3>
+        <button type="submit">Enregistrer Commande</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/commande.js"></script>
+</body>
+</html>
