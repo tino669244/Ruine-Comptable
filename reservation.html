@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservations - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Réservations</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="produits.html">Produits</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="reservations.html" class="active">Réservations</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="livraisons.html">Livraisons</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Gestion des Réservations</h2>
+    <form id="reservationForm">
+      <input type="text" id="clientReservation" placeholder="Nom du client" required>
+      <input type="text" id="produitReservation" placeholder="Produit réservé" required>
+      <button type="submit">Ajouter Réservation</button>
+    </form>
+
+    <h3>Liste des Réservations</h3>
+    <table id="reservationsTable">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Produit</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="js/reservations.js"></script>
+</body>
+</html>
