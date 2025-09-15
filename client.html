@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Ruine Comptable</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html" class="active">Clients</a>
+      <a href="produits.html">Produits</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="reservations.html">Réservations</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="livraisons.html">Livraisons</a>
+      <a href="facture.html">Factures</a>
+      <a href="commandes.html">Commandes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="clients">
+      <h2>Gestion des Clients</h2>
+
+      <form id="clientForm">
+        <input type="text" id="nomClient" placeholder="Nom du client" required>
+        <input type="email" id="emailClient" placeholder="Email du client">
+        <input type="text" id="telClient" placeholder="Téléphone">
+        <button type="submit">Ajouter Client</button>
+      </form>
+
+      <h3>Liste des Clients</h3>
+      <table id="clientsTable">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Clients ajoutés ici -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="js/clients.js"></script>
+</body>
+</html>
