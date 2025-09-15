@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produits - Ruine Comptable</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Produits</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="clients.html">Clients</a>
+      <a href="produits.html" class="active">Produits</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="reservations.html">Réservations</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="livraisons.html">Livraisons</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Gestion des Produits</h2>
+    <form id="produitForm">
+      <input type="text" id="nomProduit" placeholder="Nom du produit" required>
+      <input type="number" id="prixProduit" placeholder="Prix" required>
+      <button type="submit">Ajouter Produit</button>
+    </form>
+
+    <h3>Liste des Produits</h3>
+    <table id="produitsTable">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="js/produits.js"></script>
+</body>
+</html>
