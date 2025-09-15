@@ -4,43 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Livraisons - Ruine Comptable</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header>
-    <h1>Livraisons</h1>
+    <h1>Ruine Comptable 🚀</h1>
     <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="clients.html">Clients</a>
-      <a href="produits.html">Produits</a>
-      <a href="stocks.html">Stocks</a>
-      <a href="reservations.html">Réservations</a>
-      <a href="ventes.html">Ventes</a>
-      <a href="livraisons.html" class="active">Livraisons</a>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="client.html">Clients</a></li>
+        <li><a href="produit.html">Produits</a></li>
+        <li><a href="stock.html">Stocks</a></li>
+        <li><a href="reservation.html">Réservations</a></li>
+        <li><a href="vente.html">Ventes</a></li>
+        <li><a href="livraison.html" class="active">Livraisons</a></li>
+        <li><a href="facture.html">Factures</a></li>
+        <li><a href="commande.html">Commandes</a></li>
+      </ul>
     </nav>
   </header>
 
   <main>
     <h2>Gestion des Livraisons</h2>
-    <form id="livraisonForm">
-      <input type="text" id="clientLivraison" placeholder="Nom du client" required>
-      <input type="text" id="produitLivraison" placeholder="Produit livré" required>
-      <button type="submit">Ajouter Livraison</button>
-    </form>
-
-    <h3>Liste des Livraisons</h3>
-    <table id="livraisonsTable">
+    <button id="addDelivery">+ Nouvelle Livraison</button>
+    <table>
       <thead>
         <tr>
-          <th>Client</th>
           <th>Produit</th>
-          <th>Actions</th>
+          <th>Quantité</th>
+          <th>Date</th>
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="livraisonsTable">
+        <tr><td colspan="4">Aucune livraison enregistrée</td></tr>
+      </tbody>
     </table>
   </main>
 
-  <script src="js/livraisons.js"></script>
+  <footer>
+    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
