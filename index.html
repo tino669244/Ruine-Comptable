@@ -5,9 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ruine Comptable - Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // 🔥 Firebase config (soloina amin'ny anao manokana)
+    const firebaseConfig = {
+      apiKey: "AIzaSyXXXXXXX",
+      authDomain: "ruine-comptable.firebaseapp.com",
+      projectId: "ruine-comptable",
+      storageBucket: "ruine-comptable.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Fonction fangalana data
+    async function loadDashboard() {
+      const clientsSnap = await getDocs(collection(db, "clients"));
+      const produitsSnap = await getDocs(collection(db, "produits"));
+      const ventesSnap = await getDocs(collection(db, "ventes"));
+      const stocksSnap = await getDocs(collection(db, "stocks"));
+
+      document.getElementById("countClients").textContent = clientsSnap.size;
+      document.getElementById("countProduits").textContent = produitsSnap.size;
+      document.getElementById("countVentes").textContent = ventesSnap.size;
+      document.getElementById("countStocks").textContent = stocksSnap.size;
+    }
+
+    // Mandeha rehefa misokatra ny page
+    window.onload = loadDashboard;
+  </script>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <h1>Ruine Comptable</h1>
     <nav>
@@ -23,58 +58,14 @@
     </nav>
   </header>
 
-  <!-- Dashboard -->
   <div class="container">
     <h2>Tableau de bord</h2>
     <div class="dashboard">
-      <div class="card">
-        <h3>Clients</h3>
-        <p id="countClients">0</p>
-      </div>
-      <div class="card">
-        <h3>Produits</h3>
-        <p id="countProduits">0</p>
-      </div>
-      <div class="card">
-        <h3>Ventes</h3>
-        <p id="countVentes">0</p>
-      </div>
-      <div class="card">
-        <h3>Stocks</h3>
-        <p id="countStocks">0</p>
-      </div>
+      <div class="card"><h3>Clients</h3><p id="countClients">0</p></div>
+      <div class="card"><h3>Produits</h3><p id="countProduits">0</p></div>
+      <div class="card"><h3>Ventes</h3><p id="countVentes">0</p></div>
+      <div class="card"><h3>Stocks</h3><p id="countStocks">0</p></div>
     </div>
-
-    <!-- Section stats -->
-    <h2>Statistiques des ventes</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Mois</th>
-          <th>Total ventes</th>
-          <th>Bénéfice</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Janvier</td>
-          <td>120</td>
-          <td>5000 €</td>
-        </tr>
-        <tr>
-          <td>Février</td>
-          <td>98</td>
-          <td>4200 €</td>
-        </tr>
-        <tr>
-          <td>Mars</td>
-          <td>150</td>
-          <td>6300 €</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
