@@ -3,73 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Ruine Comptable</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
+  <title>Ruine Comptable - Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="d-flex">
-    <!-- Sidebar -->
-    <nav class="sidebar bg-dark text-white p-3">
-      <h2 class="text-center mb-4">Ruine Comptable</h2>
-      <ul class="nav flex-column">
-        <li class="nav-item"><a href="index.html" class="nav-link active">📊 Dashboard</a></li>
-        <li class="nav-item"><a href="client.html" class="nav-link text-white">👤 Clients</a></li>
-        <li class="nav-item"><a href="produit.html" class="nav-link text-white">📦 Produits</a></li>
-        <li class="nav-item"><a href="stock.html" class="nav-link text-white">📦 Stocks</a></li>
-        <li class="nav-item"><a href="reservation.html" class="nav-link text-white">📅 Réservations</a></li>
-        <li class="nav-item"><a href="vente.html" class="nav-link text-white">💰 Ventes</a></li>
-        <li class="nav-item"><a href="livraison.html" class="nav-link text-white">🚚 Livraisons</a></li>
-        <li class="nav-item"><a href="facture.html" class="nav-link text-white">🧾 Factures</a></li>
-        <li class="nav-item"><a href="commande.html" class="nav-link text-white">🛒 Commandes</a></li>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">🏠 Tableau de bord</a></li>
+        <li><a href="client.html">👤 Clients</a></li>
+        <li><a href="produit.html">📦 Produits</a></li>
+        <li><a href="stock.html">📊 Stocks</a></li>
+        <li><a href="reservation.html">📅 Réservations</a></li>
+        <li><a href="vente.html">💰 Ventes</a></li>
+        <li><a href="livraison.html">🚚 Livraisons</a></li>
+        <li><a href="commande.html">📝 Commandes</a></li>
+        <li><a href="facture.html">📄 Factures</a></li>
       </ul>
     </nav>
+  </header>
 
-    <!-- Main content -->
-    <div class="content flex-grow-1 p-4">
-      <h3 class="mb-4">Tableau de bord</h3>
-
-      <!-- Statistiques -->
-      <div class="row mb-4">
-        <div class="col-md-3">
-          <div class="card text-center shadow">
-            <div class="card-body">
-              <h5>Clients</h5>
-              <p class="display-6" id="clientCount">0</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center shadow">
-            <div class="card-body">
-              <h5>Produits</h5>
-              <p class="display-6" id="productCount">0</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center shadow">
-            <div class="card-body">
-              <h5>Ventes</h5>
-              <p class="display-6" id="venteCount">0</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card text-center shadow">
-            <div class="card-body">
-              <h5>Stocks</h5>
-              <p class="display-6" id="stockCount">0</p>
-            </div>
-          </div>
-        </div>
+  <main>
+    <section class="dashboard">
+      <h1>Bienvenue sur Ruine Comptable</h1>
+      <div class="cards">
+        <div class="card">Clients<br><span id="clients-count">0</span></div>
+        <div class="card">Produits<br><span id="produits-count">0</span></div>
+        <div class="card">Stocks<br><span id="stocks-count">0</span></div>
+        <div class="card">Ventes<br><span id="ventes-count">0</span></div>
       </div>
+    </section>
+  </main>
 
-      <!-- Graphique -->
-      <div class="card shadow">
-        <div class="card-body">
-          <h5 class="card-title">Statistiques des
+  <footer>
+    <p>&copy; 2025 Ruine Comptable</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
