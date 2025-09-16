@@ -8,43 +8,49 @@
 </head>
 <body>
   <header>
-    <h1>Ruine Comptable 🚀</h1>
+    <h1>📑 Gestion des Factures</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="client.html">Clients</a></li>
-        <li><a href="produit.html">Produits</a></li>
-        <li><a href="stock.html">Stocks</a></li>
-        <li><a href="reservation.html">Réservations</a></li>
-        <li><a href="vente.html">Ventes</a></li>
-        <li><a href="livraison.html">Livraisons</a></li>
-        <li><a href="facture.html" class="active">Factures</a></li>
-        <li><a href="commande.html">Commandes</a></li>
-      </ul>
+      <a href="index.html">Dashboard</a>
+      <a href="client.html">Clients</a>
+      <a href="produit.html">Produits</a>
+      <a href="stock.html">Stocks</a>
+      <a href="reservation.html">Réservations</a>
+      <a href="vente.html">Ventes</a>
+      <a href="livraison.html">Livraisons</a>
+      <a href="commande.html">Commandes</a>
+      <a href="facture.html" class="active">Factures</a>
     </nav>
   </header>
 
-  <main>
-    <h2>Gestion des Factures</h2>
-    <button id="addInvoice">+ Nouvelle Facture</button>
+  <main class="container">
+    <h2>Liste des Factures</h2>
+    <button class="btn">➕ Ajouter une facture</button>
     <table>
       <thead>
         <tr>
-          <th>Numéro</th>
+          <th>ID</th>
           <th>Client</th>
           <th>Montant</th>
           <th>Date</th>
+          <th>Statut</th>
+          <th>Actions</th>
         </tr>
       </thead>
-      <tbody id="facturesTable">
-        <tr><td colspan="4">Aucune facture enregistrée</td></tr>
+      <tbody id="factureTable">
+        <tr>
+          <td>1</td>
+          <td>Jean Dupont</td>
+          <td>100 000 Ar</td>
+          <td>2025-09-16</td>
+          <td>Payée</td>
+          <td>
+            <button class="btn-edit">✏️</button>
+            <button class="btn-delete">🗑️</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>
-
-  <footer>
-    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
-  </footer>
 
   <script src="assets/js/main.js"></script>
 </body>
