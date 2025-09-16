@@ -3,75 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruine Comptable</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Ruine Comptable - Produits</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background: #2d3e50;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2d3e50;
+    }
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    form input, form button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      flex: 1;
+    }
+    form button {
+      background: #2d3e50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #1b2838;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f4f6f8;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Ruine Comptable</h1>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="client.html">Clients</a>
-      <a href="produit.html">Produits</a>
-      <a href="stock.html">Stocks</a>
-      <a href="reservation.html">Réservations</a>
-      <a href="vente.html">Ventes</a>
-      <a href="livraison.html">Livraisons</a>
-      <a href="facture.html">Factures</a>
-      <a href="commande.html">Commandes</a>
-    </nav>
+    <p>Gestion des Produits (Firebase Firestore)</p>
   </header>
 
-  <main>
-    <section class="dashboard">
-      <div class="card" id="totalClients">Clients : 0</div>
-      <div class="card" id="totalProduits">Produits : 0</div>
-      <div class="card" id="totalStocks">Stocks : 0</div>
-      <div class="card" id="totalVentes">Ventes : 0</div>
-    </section>
+  <div class="container">
+    <h2>Ajouter un produit</h2>
+    <form id="produitForm">
+      <input type="text" id="nom" placeholder="Nom du produit" required>
+      <input type="number" id="prix" placeholder="Prix" required>
+      <input type="number" id="stock" placeholder="Stock" required>
+      <button type="submit">Ajouter</button>
+    </form>
 
-    <section>
-      <h2>Ajouter un produit</h2>
-      <form id="produitForm">
-        <input type="text" id="nom" placeholder="Nom du produit" required>
-        <input type="number" id="prix" placeholder="Prix" required>
-        <input type="number" id="stock" placeholder="Stock" required>
-        <button type="submit">Ajouter</button>
-      </form>
-    </section>
+    <h2>Liste des produits</h2>
+    <ul id="produitsList"></ul>
+  </div>
 
-    <section>
-      <h2>Liste des produits</h2>
-      <ul id="listeProduits"></ul>
-    </section>
-  </main>
-
-  <!-- Firebase SDK -->
   <script type="module">
-    // Import Firebase SDK
+    // Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, getDocs } 
+      from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    // Config Firebase
+    // Config Firebase (avy amin’ny nalefanao)
     const firebaseConfig = {
-      apiKey: "AIzaSyAyxa2EgwXXvkmITIJ6Cv0n7L6Z1knhnt0",
-      authDomain: "ruine-comptable.firebaseapp.com",
-      projectId: "ruine-comptable",
-      storageBucket: "ruine-comptable.firebasestorage.app",
-      messagingSenderId: "259486260658",
-      appId: "1:259486260658:web:8b931e4fbf96c6474f98ab",
-      measurementId: "G-6PTNNG86ET"
+      apiKey: "AIzaSyAXcx4zLU5VS3eZ0f2TA-WRGzFiHbUSZ6Q",
+      authDomain: "ruine-comptable-3d49c.firebaseapp.com",
+      projectId: "ruine-comptable-3d49c",
+      storageBucket: "ruine-comptable-3d49c.firebasestorage.app",
+      messagingSenderId: "880594103494",
+      appId: "1:880594103494:web:c2dc92c90c517d8af7bbc7",
+      measurementId: "G-26KEVZYE50"
     };
 
     // Init Firebase
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Récupération du formulaire
+    // Elements HTML
     const produitForm = document.getElementById("produitForm");
-    const listeProduits = document.getElementById("listeProduits");
+    const produitsList = document.getElementById("produitsList");
 
-    // Ajouter produit
+    // Fonction: ajouter produit
     produitForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const nom = document.getElementById("nom").value;
@@ -80,28 +120,28 @@
 
       try {
         await addDoc(collection(db, "produits"), { nom, prix, stock });
-        alert("Produit ajouté !");
+        alert("Produit ajouté avec succès !");
         produitForm.reset();
-        chargerProduits();
+        afficherProduits();
       } catch (err) {
-        console.error("Erreur :", err);
+        console.error("Erreur lors de l'ajout :", err);
       }
     });
 
-    // Charger produits
-    async function chargerProduits() {
-      listeProduits.innerHTML = "";
+    // Fonction: afficher produits
+    async function afficherProduits() {
+      produitsList.innerHTML = "";
       const querySnapshot = await getDocs(collection(db, "produits"));
       querySnapshot.forEach((doc) => {
-        const produit = doc.data();
+        const data = doc.data();
         const li = document.createElement("li");
-        li.textContent = `${produit.nom} - ${produit.prix} Ar (${produit.stock} en stock)`;
-        listeProduits.appendChild(li);
+        li.textContent = `${data.nom} - ${data.prix} Ar (${data.stock} en stock)`;
+        produitsList.appendChild(li);
       });
     }
 
-    // Charger au démarrage
-    chargerProduits();
+    // Charger produits au démarrage
+    afficherProduits();
   </script>
 </body>
 </html>
