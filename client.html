@@ -3,49 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clients - Ruine Comptable</title>
+  <title>Ruine Comptable - Clients</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header>
-    <h1>Ruine Comptable 🚀</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="client.html" class="active">Clients</a></li>
-        <li><a href="produit.html">Produits</a></li>
-        <li><a href="stock.html">Stocks</a></li>
-        <li><a href="reservation.html">Réservations</a></li>
-        <li><a href="vente.html">Ventes</a></li>
-        <li><a href="livraison.html">Livraisons</a></li>
-        <li><a href="facture.html">Factures</a></li>
-        <li><a href="commande.html">Commandes</a></li>
+        <li><a href="index.html">🏠 Tableau de bord</a></li>
+        <li><a href="client.html" class="active">👤 Clients</a></li>
+        <li><a href="produit.html">📦 Produits</a></li>
+        <li><a href="stock.html">📊 Stocks</a></li>
+        <li><a href="reservation.html">📅 Réservations</a></li>
+        <li><a href="vente.html">💰 Ventes</a></li>
+        <li><a href="livraison.html">🚚 Livraisons</a></li>
+        <li><a href="commande.html">📝 Commandes</a></li>
+        <li><a href="facture.html">📄 Factures</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <h2>Gestion des Clients</h2>
-    <button id="addClient">+ Ajouter un client</button>
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Téléphone</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="clientsTable">
-        <tr><td colspan="4">Aucun client pour l’instant</td></tr>
-      </tbody>
-    </table>
+    <section>
+      <h1>Gestion des Clients</h1>
+      <form id="client-form">
+        <input type="text" id="client-name" placeholder="Nom du client" required>
+        <input type="email" id="client-email" placeholder="Email" required>
+        <button type="submit">➕ Ajouter</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody id="clients-table">
+          <!-- Clients ajoutés ici -->
+        </tbody>
+      </table>
+    </section>
   </main>
 
   <footer>
-    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
+    <p>&copy; 2025 Ruine Comptable</p>
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script>
+    const clientForm = document.getElementById("client-form");
+    const clientsTable = document.getElementById("clients-table");
+
+    clientForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("client-name").value;
+      const email = document.getElementById("client-email").value;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${name}</td><td>${email}</td>`;
+      clientsTable.appendChild(row);
+
+      clientForm.reset();
+    });
+  </script>
 </body>
 </html>
