@@ -3,110 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruine Comptable</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f8f9fa;
-      color: #333;
-    }
-
-    header {
-      background: #2d3e50;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    header nav a {
-      margin: 0 10px;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    header nav a:hover {
-      text-decoration: underline;
-    }
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      font-size: 1.2em;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-  </style>
+  <title>Produits - Ruine Comptable</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
   <header>
-    <h1>📊 Ruine Comptable</h1>
+    <h1>Gestion des Produits</h1>
     <nav>
-      <a href="index.html">Accueil</a>
-      <a href="produit.html">Produits</a>
+      <a href="index.html">Dashboard</a>
       <a href="client.html">Clients</a>
-      <a href="commande.html">Commandes</a>
-      <a href="facture.html">Factures</a>
-      <a href="stock.html">Stock</a>
-      <a href="vente.html">Ventes</a>
+      <a href="produit.html">Produits</a>
+      <a href="stock.html">Stocks</a>
       <a href="reservation.html">Réservations</a>
+      <a href="vente.html">Ventes</a>
       <a href="livraison.html">Livraisons</a>
+      <a href="facture.html">Factures</a>
+      <a href="commande.html">Commandes</a>
     </nav>
   </header>
 
-  <main>
-    <section class="dashboard">
-      <div class="card">📦 Produits</div>
-      <div class="card">👥 Clients</div>
-      <div class="card">📝 Commandes</div>
-      <div class="card">💳 Factures</div>
-      <div class="card">📊 Stock</div>
-      <div class="card">💰 Ventes</div>
-      <div class="card">📅 Réservations</div>
-      <div class="card">🚚 Livraisons</div>
+  <main class="container">
+    <!-- Formulaire ajout produit -->
+    <section class="form-section">
+      <h2>Ajouter un produit</h2>
+      <form id="productForm">
+        <input type="text" id="nom" placeholder="Nom du produit" required>
+        <input type="number" id="prix" placeholder="Prix" required>
+        <input type="number" id="quantite" placeholder="Quantité" required>
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+    <!-- Tableau des produits -->
+    <section class="list-section">
+      <h2>Liste des produits</h2>
+      <table border="1" cellpadding="10">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+          </tr>
+        </thead>
+        <tbody id="productList">
+          <!-- Produits Firestore hiseho eto -->
+        </tbody>
+      </table>
     </section>
   </main>
 
-  <!-- Firebase balise -->
+  <!-- Firebase SDK -->
   <script type="module">
-    // Import Firebase SDKs
+    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    // Config Firebase (nato avy amin’ny console Firebase-nao)
+    // Config Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyAyxa2EgwXXvkmITIJ6Cv0n7L6Z1knhnt0",
-      authDomain: "ruine-comptable.firebaseapp.com",
-      projectId: "ruine-comptable",
-      storageBucket: "ruine-comptable.firebasestorage.app",
-      messagingSenderId: "259486260658",
-      appId: "1:259486260658:web:8b931e4fbf96c6474f98ab",
-      measurementId: "G-6PTNNG86ET"
+      apiKey: "AIzaSyAXcx4zLU5VS3eZ0f2TA-WRGzFiHbUSZ6Q",
+      authDomain: "ruine-comptable-3d49c.firebaseapp.com",
+      projectId: "ruine-comptable-3d49c",
+      storageBucket: "ruine-comptable-3d49c.firebasestorage.app",
+      messagingSenderId: "880594103494",
+      appId: "1:880594103494:web:c2dc92c90c517d8af7bbc7",
+      measurementId: "G-26KEVZYE50"
     };
 
-    // Initialisation Firebase
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
-    console.log("✅ Firebase connecté !");
+    // Formulaire ajout produit
+    const form = document.getElementById("productForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nom = document.getElementById("nom").value;
+      const prix = parseFloat(document.getElementById("prix").value);
+      const quantite = parseInt(document.getElementById("quantite").value);
+
+      try {
+        await addDoc(collection(db, "produits"), {
+          nom,
+          prix,
+          quantite
+        });
+        alert("✅ Produit ajouté avec succès !");
+        form.reset();
+        loadProducts();
+      } catch (e) {
+        console.error("Erreur lors de l'ajout :", e);
+      }
+    });
+
+    // Charger la liste des produits
+    async function loadProducts() {
+      const tbody = document.getElementById("productList");
+      tbody.innerHTML = "";
+
+      const querySnapshot = await getDocs(collection(db, "produits"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = `<tr>
+          <td>${data.nom}</td>
+          <td>${data.prix} Ar</td>
+          <td>${data.quantite}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    // Charger dès le départ
+    loadProducts();
   </script>
 </body>
 </html>
