@@ -8,43 +8,49 @@
 </head>
 <body>
   <header>
-    <h1>Ruine Comptable 🚀</h1>
+    <h1>💰 Gestion des Ventes</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="client.html">Clients</a></li>
-        <li><a href="produit.html">Produits</a></li>
-        <li><a href="stock.html">Stocks</a></li>
-        <li><a href="reservation.html">Réservations</a></li>
-        <li><a href="vente.html" class="active">Ventes</a></li>
-        <li><a href="livraison.html">Livraisons</a></li>
-        <li><a href="facture.html">Factures</a></li>
-        <li><a href="commande.html">Commandes</a></li>
-      </ul>
+      <a href="index.html">Dashboard</a>
+      <a href="client.html">Clients</a>
+      <a href="produit.html">Produits</a>
+      <a href="stock.html">Stocks</a>
+      <a href="reservation.html">Réservations</a>
+      <a href="vente.html" class="active">Ventes</a>
+      <a href="livraison.html">Livraisons</a>
+      <a href="commande.html">Commandes</a>
+      <a href="facture.html">Factures</a>
     </nav>
   </header>
 
-  <main>
-    <h2>Gestion des Ventes</h2>
-    <button id="addSale">+ Nouvelle Vente</button>
+  <main class="container">
+    <h2>Liste des Ventes</h2>
+    <button class="btn">➕ Ajouter une vente</button>
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Produit</th>
           <th>Quantité</th>
-          <th>Prix total</th>
+          <th>Total</th>
           <th>Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
-      <tbody id="ventesTable">
-        <tr><td colspan="4">Aucune vente enregistrée</td></tr>
+      <tbody id="venteTable">
+        <tr>
+          <td>1</td>
+          <td>Stylo</td>
+          <td>10</td>
+          <td>20 000 Ar</td>
+          <td>2025-09-16</td>
+          <td>
+            <button class="btn-edit">✏️</button>
+            <button class="btn-delete">🗑️</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>
-
-  <footer>
-    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
-  </footer>
 
   <script src="assets/js/main.js"></script>
 </body>
