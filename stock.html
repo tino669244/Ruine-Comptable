@@ -8,42 +8,47 @@
 </head>
 <body>
   <header>
-    <h1>Ruine Comptable 🚀</h1>
+    <h1>📊 Gestion des Stocks</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="client.html">Clients</a></li>
-        <li><a href="produit.html">Produits</a></li>
-        <li><a href="stock.html" class="active">Stocks</a></li>
-        <li><a href="reservation.html">Réservations</a></li>
-        <li><a href="vente.html">Ventes</a></li>
-        <li><a href="livraison.html">Livraisons</a></li>
-        <li><a href="facture.html">Factures</a></li>
-        <li><a href="commande.html">Commandes</a></li>
-      </ul>
+      <a href="index.html">Dashboard</a>
+      <a href="client.html">Clients</a>
+      <a href="produit.html">Produits</a>
+      <a href="stock.html" class="active">Stocks</a>
+      <a href="reservation.html">Réservations</a>
+      <a href="vente.html">Ventes</a>
+      <a href="livraison.html">Livraisons</a>
+      <a href="commande.html">Commandes</a>
+      <a href="facture.html">Factures</a>
     </nav>
   </header>
 
-  <main>
-    <h2>Gestion des Stocks</h2>
+  <main class="container">
+    <h2>Liste des Stocks</h2>
+    <button class="btn">➕ Ajouter un stock</button>
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Produit</th>
-          <th>Quantité en stock</th>
-          <th>Seuil minimum</th>
+          <th>Quantité</th>
+          <th>Entrepôt</th>
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody id="stocksTable">
-        <tr><td colspan="4">Aucun stock enregistré</td></tr>
+      <tbody id="stockTable">
+        <tr>
+          <td>1</td>
+          <td>Stylo</td>
+          <td>120</td>
+          <td>Antananarivo</td>
+          <td>
+            <button class="btn-edit">✏️</button>
+            <button class="btn-delete">🗑️</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>
-
-  <footer>
-    <p>© 2025 Ruine Comptable. Tous droits réservés.</p>
-  </footer>
 
   <script src="assets/js/main.js"></script>
 </body>
