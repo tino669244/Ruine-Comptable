@@ -1,34 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Exemple data (peut être remplacé par loadData de LocalStorage)
+  // Fake data (azo soloina API/database)
   const stats = {
     clients: 12,
-    produits: 25,
-    ventes: 48,
-    stocks: 90,
-    ventesMensuelles: [12, 19, 8, 15, 20, 25, 18, 22, 30, 28, 40, 35]
+    produits: 34,
+    ventes: 18,
+    stocks: 90
   };
 
-  // Mise à jour des cards
-  document.getElementById("totalClients").textContent = stats.clients;
-  document.getElementById("totalProduits").textContent = stats.produits;
-  document.getElementById("totalVentes").textContent = stats.ventes;
-  document.getElementById("totalStocks").textContent = stats.stocks;
+  // Update cards
+  document.getElementById("clientCount").textContent = stats.clients;
+  document.getElementById("productCount").textContent = stats.produits;
+  document.getElementById("venteCount").textContent = stats.ventes;
+  document.getElementById("stockCount").textContent = stats.stocks;
 
-  // Création du graphique avec Chart.js
+  // Chart.js setup
   const ctx = document.getElementById("salesChart").getContext("2d");
   new Chart(ctx, {
     type: "line",
     data: {
-      labels: [
-        "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
-        "Juil", "Août", "Sep", "Oct", "Nov", "Déc"
-      ],
+      labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"],
       datasets: [{
-        label: "Ventes mensuelles",
-        data: stats.ventesMensuelles,
-        backgroundColor: "rgba(0, 170, 255, 0.2)",
-        borderColor: "#00aaff",
-        borderWidth: 2,
+        label: "Ventes",
+        data: [5, 9, 7, 12, 15, 20],
+        borderColor: "#0d6efd",
+        backgroundColor: "rgba(13, 110, 253, 0.2)",
         fill: true,
         tension: 0.3
       }]
@@ -36,14 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     options: {
       responsive: true,
       plugins: {
-        legend: {
-          labels: { color: "#333" }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+        legend: { display: true }
       }
     }
   });
