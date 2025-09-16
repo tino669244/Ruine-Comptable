@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- HEADER -->
+  <!-- Header -->
   <header>
-    <h1>📊 Ruine Comptable</h1>
+    <h1>Ruine Comptable</h1>
     <nav>
       <a href="index.html" class="active">Dashboard</a>
       <a href="client.html">Clients</a>
@@ -18,14 +18,15 @@
       <a href="reservation.html">Réservations</a>
       <a href="vente.html">Ventes</a>
       <a href="livraison.html">Livraisons</a>
-      <a href="commande.html">Commandes</a>
       <a href="facture.html">Factures</a>
+      <a href="commande.html">Commandes</a>
     </nav>
   </header>
 
-  <!-- DASHBOARD -->
-  <main>
-    <section class="dashboard">
+  <!-- Dashboard -->
+  <div class="container">
+    <h2>Tableau de bord</h2>
+    <div class="dashboard">
       <div class="card">
         <h3>Clients</h3>
         <p id="countClients">0</p>
@@ -42,10 +43,38 @@
         <h3>Stocks</h3>
         <p id="countStocks">0</p>
       </div>
-    </section>
-  </main>
+    </div>
+
+    <!-- Section stats -->
+    <h2>Statistiques des ventes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Mois</th>
+          <th>Total ventes</th>
+          <th>Bénéfice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Janvier</td>
+          <td>120</td>
+          <td>5000 €</td>
+        </tr>
+        <tr>
+          <td>Février</td>
+          <td>98</td>
+          <td>4200 €</td>
+        </tr>
+        <tr>
+          <td>Mars</td>
+          <td>150</td>
+          <td>6300 €</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
