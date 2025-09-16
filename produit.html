@@ -3,69 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruine Comptable - Produits</title>
+  <title>Produits - Ruine Comptable</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header>
+    <h1>📦 Gestion des Produits</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">🏠 Tableau de bord</a></li>
-        <li><a href="client.html">👤 Clients</a></li>
-        <li><a href="produit.html" class="active">📦 Produits</a></li>
-        <li><a href="stock.html">📊 Stocks</a></li>
-        <li><a href="reservation.html">📅 Réservations</a></li>
-        <li><a href="vente.html">💰 Ventes</a></li>
-        <li><a href="livraison.html">🚚 Livraisons</a></li>
-        <li><a href="commande.html">📝 Commandes</a></li>
-        <li><a href="facture.html">📄 Factures</a></li>
-      </ul>
+      <a href="index.html">Dashboard</a>
+      <a href="client.html">Clients</a>
+      <a href="produit.html" class="active">Produits</a>
+      <a href="stock.html">Stocks</a>
+      <a href="reservation.html">Réservations</a>
+      <a href="vente.html">Ventes</a>
+      <a href="livraison.html">Livraisons</a>
+      <a href="commande.html">Commandes</a>
+      <a href="facture.html">Factures</a>
     </nav>
   </header>
 
-  <main>
-    <section>
-      <h1>Gestion des Produits</h1>
-      <form id="produit-form">
-        <input type="text" id="produit-name" placeholder="Nom du produit" required>
-        <input type="number" id="produit-price" placeholder="Prix" required>
-        <button type="submit">➕ Ajouter</button>
-      </form>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Produit</th>
-            <th>Prix (€)</th>
-          </tr>
-        </thead>
-        <tbody id="produits-table">
-          <!-- Produits ajoutés ici -->
-        </tbody>
-      </table>
-    </section>
+  <main class="container">
+    <h2>Liste des Produits</h2>
+    <button class="btn">➕ Ajouter un produit</button>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Catégorie</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="produitTable">
+        <tr>
+          <td>1</td>
+          <td>Stylo</td>
+          <td>2 000 Ar</td>
+          <td>Fourniture</td>
+          <td>
+            <button class="btn-edit">✏️</button>
+            <button class="btn-delete">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Ruine Comptable</p>
-  </footer>
-
   <script src="assets/js/main.js"></script>
-  <script>
-    const produitForm = document.getElementById("produit-form");
-    const produitsTable = document.getElementById("produits-table");
-
-    produitForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("produit-name").value;
-      const price = document.getElementById("produit-price").value;
-
-      const row = document.createElement("tr");
-      row.innerHTML = `<td>${name}</td><td>${price}</td>`;
-      produitsTable.appendChild(row);
-
-      produitForm.reset();
-    });
-  </script>
 </body>
 </html>
