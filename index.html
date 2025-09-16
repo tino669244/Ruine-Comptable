@@ -7,37 +7,43 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <!-- HEADER -->
   <header>
+    <h1>📊 Ruine Comptable</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">🏠 Tableau de bord</a></li>
-        <li><a href="client.html">👤 Clients</a></li>
-        <li><a href="produit.html">📦 Produits</a></li>
-        <li><a href="stock.html">📊 Stocks</a></li>
-        <li><a href="reservation.html">📅 Réservations</a></li>
-        <li><a href="vente.html">💰 Ventes</a></li>
-        <li><a href="livraison.html">🚚 Livraisons</a></li>
-        <li><a href="commande.html">📝 Commandes</a></li>
-        <li><a href="facture.html">📄 Factures</a></li>
-      </ul>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="client.html">Clients</a>
+      <a href="produit.html">Produits</a>
+      <a href="stock.html">Stocks</a>
+      <a href="reservation.html">Réservations</a>
+      <a href="vente.html">Ventes</a>
+      <a href="livraison.html">Livraisons</a>
+      <a href="commande.html">Commandes</a>
+      <a href="facture.html">Factures</a>
     </nav>
   </header>
 
+  <!-- DASHBOARD -->
   <main>
     <section class="dashboard">
-      <h1>Bienvenue sur Ruine Comptable</h1>
-      <div class="cards">
-        <div class="card">Clients<br><span id="clients-count">0</span></div>
-        <div class="card">Produits<br><span id="produits-count">0</span></div>
-        <div class="card">Stocks<br><span id="stocks-count">0</span></div>
-        <div class="card">Ventes<br><span id="ventes-count">0</span></div>
+      <div class="card">
+        <h3>Clients</h3>
+        <p id="countClients">0</p>
+      </div>
+      <div class="card">
+        <h3>Produits</h3>
+        <p id="countProduits">0</p>
+      </div>
+      <div class="card">
+        <h3>Ventes</h3>
+        <p id="countVentes">0</p>
+      </div>
+      <div class="card">
+        <h3>Stocks</h3>
+        <p id="countStocks">0</p>
       </div>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Ruine Comptable</p>
-  </footer>
 
   <script src="assets/js/main.js"></script>
   <script src="assets/js/dashboard.js"></script>
